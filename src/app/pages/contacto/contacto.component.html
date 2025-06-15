@@ -1,0 +1,14 @@
+<form #formulario="ngForm" (ngSubmit)="enviarFormulario(formulario)" novalidate>
+  <label>Nombre:</label>
+  <input name="nombre" [(ngModel)]="datos.nombre" class="form-control" required>
+
+  <label>Correo:</label>
+  <input name="correo" [(ngModel)]="datos.correo" class="form-control" required email>
+
+  <label>Mensaje:</label>
+  <textarea name="mensaje" [(ngModel)]="datos.mensaje" class="form-control" rows="4" required></textarea>
+
+  <button type="submit" class="btn btn-primary mt-3" [disabled]="!formulario.valid">
+    Enviar
+  </button>
+</form>

@@ -1,0 +1,32 @@
+<div class="recuperar-container">
+  <h2>Recuperar Contraseña</h2>
+
+  <form #recForm="ngForm" (ngSubmit)="onSubmit(recForm)" novalidate>
+    <div class="form-group">
+      <label for="emailRec">Email *</label>
+      <input
+        id="emailRec"
+        name="email"
+        type="email"
+        class="form-control"
+        required
+        [(ngModel)]="email"
+        #eCtrl="ngModel"
+      />
+      <div class="invalid-feedback" *ngIf="eCtrl.invalid && eCtrl.touched">
+        Debes introducir un correo válido.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="recForm.invalid">
+      Enviar enlace
+    </button>
+  </form>
+
+  <div class="alert alert-success mt-3" *ngIf="enviado">
+    ¡Revisa tu correo para recuperar tu contraseña!
+  </div>
+  <div class="alert alert-danger mt-3" *ngIf="error">
+    {{ error }}
+  </div>
+</div>

@@ -1,0 +1,13 @@
+.recuperar-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+.invalid-feedback { color: #dc3545; }
+button[disabled] { opacity: .6; cursor: not-allowed; }

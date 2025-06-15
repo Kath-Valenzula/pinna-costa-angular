@@ -1,0 +1,10 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <!-- tus campos: nombre, email, pwd1, pwd2, role -->
+  <button type="submit" [disabled]="loading" class="btn btn-success w-100">
+    <span *ngIf="!loading">Crear Usuario</span>
+    <span *ngIf="loading">Creando…</span>
+  </button>
+</form>
+
+<div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
+<div *ngIf="successMsg" class="alert alert-success mt-3">{{ successMsg }}</div>

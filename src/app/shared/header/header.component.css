@@ -1,0 +1,28 @@
+.main-header {
+  background-color: #ffe5ec;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: #cc3366;
+  font-weight: bold;
+}
+
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+}
+
+.main-nav a.activo {
+  color: #cc3366;
+  border-bottom: 2px solid #cc3366;
+}

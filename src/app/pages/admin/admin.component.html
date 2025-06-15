@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/img/logo.jpg" alt="Piña Costa" height="40">
+    </a>
+    <button class="btn btn-outline-danger ms-auto" (click)="salir()">
+      Salir
+    </button>
+  </div>
+</nav>
+<main class="container py-5">
+  <section class="mb-5">
+    <h1 class="mb-3">Panel de Administración</h1>
+    <p>Bienvenido, <strong>Admin</strong>. Desde aquí gestionas usuarios y productos.</p>
+    <button class="btn btn-primary rounded-pill" (click)="crearUsuario()">Crear Usuario</button>
+  </section>
+
+  <section class="mb-5">
+    <h2 class="h4 mb-3">Usuarios Registrados</h2>
+    <table class="table table-striped">
+      <thead><tr><th>ID</th><th>Nombre</th><th>Email</th><th>Rol</th><th>Acciones</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let u of usuarios">
+          <td>{{u.id}}</td>
+          <td>{{u.name}}</td>
+          <td>{{u.email}}</td>
+          <td>{{u.role}}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-secondary">Editar</button>
+            <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="h4 mb-3">Productos</h2>
+    <table class="table table-bordered mb-4">
+      <thead><tr><th>ID</th><th>Nombre</th><th>Imagen</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let p of productos">
+          <td>{{p.id}}</td>
+          <td>{{p.name}}</td>
+          <td><img [src]="p.image" height="50"></td>
+          <td>{{p.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="h5 mb-2">Agregar Nuevo Producto</h3>
+    <form #f="ngForm" (ngSubmit)="agregarProducto({ 
+        name: f.value.prodName, 
+        image: f.value.prodImage, 
+        description: f.value.prodDesc 
+      })" class="row g-3 needs-validation" novalidate>
+      <div class="col-md-4">
+        <input name="prodName" ngModel required placeholder="Nombre" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <input name="prodImage" ngModel required placeholder="URL Imagen" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <input name="prodDesc" ngModel required placeholder="Descripción" class="form-control">
+      </div>
+      <div class="col-12">
+        <button [disabled]="f.invalid" class="btn btn-primary rounded-pill">Añadir Producto</button>
+      </div>
+    </form>
+  </section>
+</main>

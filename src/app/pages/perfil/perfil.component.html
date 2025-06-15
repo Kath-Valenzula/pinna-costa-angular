@@ -1,0 +1,42 @@
+<div class="container py-5" style="max-width:600px;">
+  <h1 class="mb-4">Mi Perfil</h1>
+  <form (ngSubmit)="actualizar()" #f="ngForm" novalidate>
+    <div class="mb-3">
+      <label for="nameProf" class="form-label">Nombre *</label>
+      <input id="nameProf" name="name" class="form-control" required
+             [(ngModel)]="name">
+    </div>
+    <div class="mb-3">
+      <label for="emailProf" class="form-label">Email</label>
+      <input id="emailProf" name="email" type="email" class="form-control" readonly
+             [(ngModel)]="email">
+    </div>
+    <div class="mb-3">
+      <label for="phoneProf" class="form-label">Teléfono</label>
+      <input id="phoneProf" name="phone" type="tel" class="form-control"
+             [(ngModel)]="phone">
+    </div>
+
+    <hr class="my-4">
+
+    <h2 class="h5 mb-3">Cambiar Contraseña</h2>
+    <div class="mb-3">
+      <label for="currentPwd" class="form-label">Contraseña Actual *</label>
+      <input id="currentPwd" name="currentPwd" type="password" class="form-control" required
+             [(ngModel)]="currentPwd">
+    </div>
+    <div class="mb-3">
+      <label for="newPwd1" class="form-label">Nueva Contraseña *</label>
+      <input id="newPwd1" name="newPwd1" type="password" class="form-control" required
+             [(ngModel)]="newPwd1">
+      <div class="form-text">8–16 caracteres, 1 mayúscula, 1 minúscula, 1 número, 1 especial.</div>
+    </div>
+    <div class="mb-3">
+      <label for="newPwd2" class="form-label">Repetir Nueva Contraseña *</label>
+      <input id="newPwd2" name="newPwd2" type="password" class="form-control" required
+             [(ngModel)]="newPwd2">
+    </div>
+
+    <button class="btn btn-primary w-100" [disabled]="f.invalid">Actualizar Perfil</button>
+  </form>
+</div>

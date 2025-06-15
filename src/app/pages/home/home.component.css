@@ -1,0 +1,7 @@
+/* estilos específicos de HomeComponent */
+.hero .btn-primary {
+  background-color: rgba(204, 51, 102, 0.8);
+}
+.hero .btn-primary:hover {
+  background-color: rgba(224, 76, 127, 0.8);
+}
