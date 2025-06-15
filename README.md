@@ -1,6 +1,28 @@
 # PinnaCosta
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Simple tienda online creada con Angular para el ramo de Programación. En ella se muestran productos de moda femenina y un carrito básico para practicar el framework.
+
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 16.2.16.
+
+## Instalación
+
+1. Clona el repositorio y accede a la carpeta del proyecto:
+   ```bash
+   git clone <repositorio>
+   cd pinna-costa-angular
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de desarrollo:
+   ```bash
+   npx ng serve
+   ```
+
+## Organización
+
+Las tareas se gestionan en Trello: [Tablero del proyecto](https://trello.com/b/pinnacosta).
 
 ## Development server
 
