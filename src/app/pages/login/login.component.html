@@ -1,31 +1,14 @@
 <div class="container py-5">
   <h2 class="text-center mb-4">Iniciar sesión</h2>
-  <form (ngSubmit)="iniciarSesion()" #loginForm="ngForm" novalidate>
+  <form>
     <div class="mb-3">
       <label for="email" class="form-label">Correo electrónico</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        class="form-control"
-        required
-        [(ngModel)]="usuario.email"
-      />
+      <input type="email" id="email" class="form-control" required>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Contraseña</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        class="form-control"
-        required
-        [(ngModel)]="usuario.password"
-      />
+      <input type="password" id="password" class="form-control" required>
     </div>
     <button type="submit" class="btn btn-dark mt-3">Entrar</button>
-    <div *ngIf="loginExitoso" class="alert alert-success mt-4">
-      ¡Bienvenida de nuevo, {{ usuario.email }}!
-    </div>
   </form>
 </div>

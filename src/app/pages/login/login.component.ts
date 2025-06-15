@@ -1,19 +1,8 @@
 import { Component } from '@angular/core';
 
-interface Credenciales {
-  email: string;
-  password: string;
-}
-
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  usuario: Credenciales = { email: '', password: '' };
-  loginExitoso = false;
-
-  iniciarSesion(): void {
-    this.loginExitoso = (this.usuario.email === 'admin' && this.usuario.password === '1234');
-  }
-}
+export class LoginComponent { }

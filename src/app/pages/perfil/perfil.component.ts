@@ -12,11 +12,12 @@ export class PerfilComponent {
   newPwd1 = '';
   newPwd2 = '';
 
-  actualizar() {
-    if (this.newPwd1 !== this.newPwd2) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
-    alert('Perfil actualizado correctamente.');
+actualizar() {
+  if (this.newPwd1 !== this.newPwd2) {
+    alert('Las contraseñas no coinciden');
+    return;
   }
+  alert('Perfil actualizado correctamente.');
+}
+
 }
