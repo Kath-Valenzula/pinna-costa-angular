@@ -1,10 +1,8 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/productos.service';
-import { CartService } from 'src/app/shared/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 import { Producto } from 'src/app/models/producto.model';
-
 
 @Component({
   selector: 'app-producto-detalle',
@@ -16,22 +14,17 @@ export class ProductoDetalleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-
     private productService: ProductService,
     private cartService: CartService
-
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    this.productSvc.getById(id).subscribe(p => this.producto = p);
-
-    this.productService.getById(id).subscribe((prod: Producto) => {
-      this.producto = prod;
+    this.productService.getById(id).subscribe((prod) => {
+      if (prod) {
+        this.producto = prod;
+      }
     });
-
-
   }
 
   agregarAlCarrito(): void {
