@@ -1,6 +1,6 @@
 import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute }         from '@angular/router';
-import { ProductosService }       from '../../services/productos.service';
+import { ProductService }         from '../../services/productos.service';
 import { Producto }               from '../../models/producto.model';
 import { CartService }            from '../../services/cart.service';
 
@@ -14,13 +14,13 @@ export class ProductoDetalleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productosSvc: ProductosService,
+    private productSvc: ProductService,
     private cartSvc: CartService
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productosSvc.getById(id).subscribe(p => this.producto = p);
+    this.productSvc.getById(id).subscribe(p => this.producto = p);
   }
 
   agregarAlCarrito(): void {
