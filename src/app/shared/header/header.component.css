@@ -1,29 +1,26 @@
-.navbar {
+.header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 40px;
-  background-color: white;
+  padding: 10px 30px;
+  border-bottom: 1px solid #ccc;
 }
 
-.logo img {
-  height: 60px; 
+.logo {
+  height: 60px;
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-  font-size: 1.2rem;
-}
-
-.nav-links a {
+nav a {
+  margin: 0 10px;
   text-decoration: none;
   color: #333;
-  transition: color 0.3s;
+  font-weight: 500;
+  transition: color 0.3s, background-color 0.3s;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
-  color: #e91e63; 
+nav a:hover {
+  color: white;
+  background-color: #c2185b;
+  padding: 5px 10px;
+  border-radius: 25px;
 }
