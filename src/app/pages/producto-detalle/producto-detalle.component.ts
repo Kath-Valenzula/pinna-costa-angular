@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Producto } from 'src/app/models/producto.model';
 import { ProductService } from 'src/app/services/productos.service';
 import { CartService } from 'src/app/services/cart.service';
-import { Producto } from 'src/app/models/producto.model';
 
 @Component({
   selector: 'app-producto-detalle',
@@ -20,7 +20,7 @@ export class ProductoDetalleComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getById(id).subscribe((prod) => {
+    this.productService.getById(id).subscribe((prod: Producto | undefined) => {
       if (prod) {
         this.producto = prod;
       }
