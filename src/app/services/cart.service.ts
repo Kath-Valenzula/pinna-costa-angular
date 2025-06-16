@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Producto } from '../models/producto.model';
+import { Producto } from 'src/app/models/producto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +7,15 @@ import { Producto } from '../models/producto.model';
 export class CartService {
   private items: Producto[] = [];
 
-  /** Devuelve los productos actualmente en el carrito */
-  getCart(): Producto[] {
+  agregar(producto: Producto): void {
+    this.items.push(producto);
+  }
+
+  obtenerItems(): Producto[] {
     return this.items;
   }
 
-  /** Añade un producto al carrito */
-  addToCart(p: Producto): void {
-    this.items.push(p);
-  }
-
-  /** Vacía el carrito */
-  clearCart(): void {
+  limpiarCarrito(): void {
     this.items = [];
   }
 }
