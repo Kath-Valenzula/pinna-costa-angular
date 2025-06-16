@@ -1,17 +1,20 @@
 <div class="container py-5">
-  <h2 class="mb-4">Catálogo de Productos</h2>
-  <div class="row">
-    <div class="col-md-4 mb-3" *ngFor="let p of productos">
-      <div class="card h-100">
-        <img [src]="p.imagen" class="card-img-top" [alt]="p.nombre">
-        <div class="card-body d-flex flex-column">
+  <h2 class="mb-4">Catálogo Completo</h2>
+
+  <div *ngIf="productos.length > 0; else noHayProductos" class="row">
+    <div *ngFor="let p of productos" class="col-md-4 mb-3">
+      <div class="card">
+        <img [src]="p.imagen" class="card-img-top" alt="{{p.nombre}}">
+        <div class="card-body">
           <h5 class="card-title">{{ p.nombre }}</h5>
-          <p class="card-text flex-grow-1">${{ p.precio | number:'1.0-0' }}</p>
-          <a [routerLink]="['/producto', p.id]" class="btn btn-primary">
-            Ver detalle
-          </a>
+          <p class="card-text">${{ p.precio }}</p>
+          <a [routerLink]="['/producto', p.id]" class="btn btn-primary">Ver detalle</a>
         </div>
       </div>
     </div>
   </div>
+
+  <ng-template #noHayProductos>
+    <p class="text-muted">No hay productos disponibles en este momento.</p>
+  </ng-template>
 </div>

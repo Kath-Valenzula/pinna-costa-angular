@@ -1,0 +1,5 @@
+/* Estilos personalizados para el catálogo */
+.card-img-top {
+  height: 240px;
+  object-fit: cover;
+}

@@ -1,6 +1,8 @@
-import { Component, OnInit }     from '@angular/core';
-import { ProductService }        from '../../services/productos.service';
-import { Producto }              from '../../models/producto.model';
+
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../services/productos.service';
+import { Producto } from '../../models/producto.model';
+
 
 @Component({
   selector: 'app-catalogo',
@@ -10,10 +12,10 @@ import { Producto }              from '../../models/producto.model';
 export class CatalogoComponent implements OnInit {
   productos: Producto[] = [];
 
-  constructor(private productSvc: ProductService) {}
-
+  constructor(private productSvc: ProductService) { }
   ngOnInit(): void {
-    this.productSvc.getAll().subscribe(data => {
+    this.productSvc.getAll().subscribe((data: Producto[]) => {
+
       this.productos = data;
     });
   }

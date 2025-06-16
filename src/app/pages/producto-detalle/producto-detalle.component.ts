@@ -1,8 +1,10 @@
-import { Component, OnInit }      from '@angular/core';
-import { ActivatedRoute }         from '@angular/router';
-import { ProductService }         from '../../services/productos.service';
-import { Producto }               from '../../models/producto.model';
-import { CartService }            from '../../services/cart.service';
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from 'src/app/services/productos.service';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { Producto } from 'src/app/models/producto.model';
+
 
 @Component({
   selector: 'app-producto-detalle',
@@ -14,19 +16,28 @@ export class ProductoDetalleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productSvc: ProductService,
-    private cartSvc: CartService
+
+    private productService: ProductService,
+    private cartService: CartService
+
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
     this.productSvc.getById(id).subscribe(p => this.producto = p);
+
+    this.productService.getById(id).subscribe((prod: Producto) => {
+      this.producto = prod;
+    });
+
+
   }
 
   agregarAlCarrito(): void {
     if (this.producto) {
-      this.cartSvc.addToCart(this.producto);
-      alert(`${this.producto.nombre} añadido al carrito.`);
+      this.cartService.agregar(this.producto);
+      alert(`${this.producto.nombre} fue agregado al carrito.`);
     }
   }
 }

@@ -22,7 +22,9 @@ Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-
 
 ## Organización
 
-Las tareas se gestionan en Trello: [Tablero del proyecto](https://trello.com/b/pinnacosta).
+
+Las tareas se gestionan en Trello: https://trello.com/invite/b/6841b7501513a7c851f63262/ATTI3972defad988bed90611a1ea7585c395258AECA5/pina-costa.
+
 
 ## Development server
 
