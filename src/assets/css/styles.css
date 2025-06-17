@@ -74,3 +74,17 @@ body {
   font-size: 0.9rem;
   padding: 1rem 0;
 }
+
+.text-pink {
+  color: #e91e63;
+}
+
+.btn-pink {
+  background-color: #e91e63;
+  color: white;
+  border: none;
+}
+
+.btn-pink:hover {
+  background-color: #d81b60;
+}

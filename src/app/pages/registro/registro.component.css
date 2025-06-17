@@ -11,3 +11,18 @@
 }
 .invalid-feedback { color: #dc3545; }
 button[disabled] { opacity: .6; cursor: not-allowed; }
+
+.text-pink {
+  color: #e91e63;
+}
+
+.btn-pink {
+  background-color: #e91e63;
+  color: white;
+  border: none;
+}
+
+.btn-pink:hover {
+  background-color: #d81b60;
+  color: white;
+}
