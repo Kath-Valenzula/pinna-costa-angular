@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -9,20 +9,47 @@ import { NgForm } from '@angular/forms';
 export class RegistroComponent {
   nombre = '';
   email = '';
-  pwd1 = '';
-  pwd2 = '';
-  registroError = '';
+  password = '';
+  error = '';
+  exito = '';
 
-  onSubmit(form: NgForm) {
-    if (form.invalid || this.pwd1 !== this.pwd2) {
-      this.registroError = this.pwd1 !== this.pwd2
-        ? 'Las contraseñas no coinciden.'
-        : 'Por favor completa todos los campos correctamente.';
+  constructor(private router: Router) {}
+
+  registrar(): void {
+    if (!this.nombre || !this.email || !this.password) {
+      this.error = 'Todos los campos son obligatorios.';
+      this.exito = '';
       return;
     }
-    console.log('Nuevo usuario', { nombre: this.nombre, email: this.email });
-    this.registroError = '';
-    form.resetForm();
+
+    const usuariosGuardados = localStorage.getItem('usuarios');
+    const usuarios = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
+
+    const existe = usuarios.find((u: any) => u.email === this.email);
+    if (existe) {
+      this.error = 'Ya existe una cuenta con ese correo.';
+      this.exito = '';
+      return;
+    }
+
+    const nuevoUsuario = {
+      nombre: this.nombre,
+      email: this.email,
+      password: this.password,
+      tipo: 'cliente'
+    };
+
+    usuarios.push(nuevoUsuario);
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    this.exito = '¡Registro exitoso! Ahora puedes iniciar sesión.';
+    this.error = '';
+    this.nombre = '';
+    this.email = '';
+    this.password = '';
+
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    }, 2000);
   }
 }
-

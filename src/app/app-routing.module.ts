@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { HomeComponent } from './pages/home/home.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { ProductoDetalleComponent } from './pages/producto-detalle/producto-detalle.component';
@@ -26,8 +27,9 @@ const routes: Routes = [
   { path: 'contacto', component: ContactoComponent },
   { path: 'admin-login', component: AdminLoginComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'create-user', component: CreateUserComponent },
+  { path: 'crear-usuario', component: CreateUserComponent },
   { path: 'acerca', component: AcercaComponent },
+  { path: '**', redirectTo: '' } // Ruta por defecto para errores 404
 ];
 
 @NgModule({

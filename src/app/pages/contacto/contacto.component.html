@@ -1,22 +1,28 @@
-<section class="contacto seccion" id="contacto">
-  <div class="container">
-    <h2 class="titulo">Contáctanos</h2>
-    <div class="contacto-contenido">
-      <div class="info-contacto">
-        <p><strong>Dirección:</strong> Av. Costanera 123, El Tabo</p>
-        <p><strong>Email:</strong> contacto&#64;pinacosta.cl</p>
-        <p><strong>Teléfono:</strong> +56 9 1234 5678</p>
-        <p><strong>Horario:</strong> Lunes a Viernes, 10:00 – 18:00</p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card p-4 shadow-lg border-0">
+        <h2 class="text-center text-pink mb-4">Contáctanos</h2>
+
+        <form>
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="mensaje" class="form-label">Mensaje</label>
+            <textarea class="form-control" id="mensaje" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-pink w-100">Enviar mensaje</button>
+        </form>
       </div>
-      <form class="formulario-contacto">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required>
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-        <button type="submit">Enviar</button>
-      </form>
     </div>
   </div>
-</section>
+</div>

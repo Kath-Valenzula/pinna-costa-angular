@@ -9,18 +9,32 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  error: string = '';
 
   constructor(private router: Router) {}
 
-  onSubmit(): void {
-    if (this.email === 'admin@example.com' && this.password === 'admin123') {
-      alert('Bienvenido administrador');
-      this.router.navigate(['/admin']);
-    } else if (this.email === 'usuario@example.com' && this.password === 'usuario123') {
-      alert('Bienvenido usuario');
-      this.router.navigate(['/home']);
+  iniciarSesion(): void {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const usuario = usuarios.find((u: any) => u.email === this.email && u.password === this.password);
+
+    if (usuario) {
+      localStorage.setItem('usuario', JSON.stringify(usuario));
+
+      if (usuario.email === 'admin@example.com') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/']);
+      }
     } else {
-      alert('Credenciales incorrectas. Intenta nuevamente.');
+      this.error = 'Correo o contraseña incorrectos';
     }
+  }
+
+  recuperarPassword(): void {
+    this.router.navigate(['/recuperar']);
+  }
+
+  registrarse(): void {
+    this.router.navigate(['/registro']);
   }
 }

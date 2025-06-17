@@ -1,78 +1,31 @@
-<div class="registro-container">
-  <h2>Registro de Usuario</h2>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%;">
+    <h2 class="text-center mb-4 text-pink">Crear cuenta</h2>
 
-  <form #regForm="ngForm" (ngSubmit)="onSubmit(regForm)" novalidate>
-    <div class="form-group">
-      <label for="nombre">Nombre *</label>
-      <input
-        id="nombre"
-        name="nombre"
-        type="text"
-        class="form-control"
-        required
-        [(ngModel)]="nombre"
-        #nCtrl="ngModel"
-      />
-      <div class="invalid-feedback" *ngIf="nCtrl.invalid && nCtrl.touched">
-        El nombre es obligatorio.
+    <form (ngSubmit)="registrar()">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre completo</label>
+        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" class="form-control" required />
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="email">Email *</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        class="form-control"
-        required
-        [(ngModel)]="email"
-        #eCtrl="ngModel"
-      />
-      <div class="invalid-feedback" *ngIf="eCtrl.invalid && eCtrl.touched">
-        Email no válido.
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required />
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="pwd1">Contraseña *</label>
-      <input
-        id="pwd1"
-        name="pwd1"
-        type="password"
-        class="form-control"
-        required
-        minlength="8"
-        [(ngModel)]="pwd1"
-        #p1Ctrl="ngModel"
-      />
-      <div class="invalid-feedback" *ngIf="p1Ctrl.invalid && p1Ctrl.touched">
-        8–16 caracteres, con mayúsculas, minúsculas, números y símbolo.
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required />
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="pwd2">Repetir Contraseña *</label>
-      <input
-        id="pwd2"
-        name="pwd2"
-        type="password"
-        class="form-control"
-        required
-        [(ngModel)]="pwd2"
-        #p2Ctrl="ngModel"
-      />
-      <div class="invalid-feedback" *ngIf="p2Ctrl.invalid && p2Ctrl.touched">
-        Debes repetir la misma contraseña.
-      </div>
-    </div>
+      <div *ngIf="error" class="alert alert-danger text-center mt-3">{{ error }}</div>
+      <div *ngIf="exito" class="alert alert-success text-center mt-3">{{ exito }}</div>
 
-    <button type="submit" class="btn btn-success" [disabled]="regForm.invalid">
-      Registrarse
-    </button>
+      <button type="submit" class="btn btn-pink w-100 mt-3">Registrarse</button>
+    </form>
 
-    <div class="alert alert-danger mt-3" *ngIf="registroError">
-      {{ registroError }}
+    <div class="text-center mt-3">
+      <a routerLink="/login" class="text-decoration-none text-pink">¿Ya tienes cuenta? Inicia sesión</a>
     </div>
-  </form>
+  </div>
 </div>
