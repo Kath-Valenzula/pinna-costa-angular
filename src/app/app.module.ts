@@ -21,8 +21,6 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { AcercaComponent } from './pages/acerca/acerca.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,9 +36,7 @@ import { AcercaComponent } from './pages/acerca/acerca.component';
     AdminLoginComponent,
     AdminComponent,
     CreateUserComponent,
-    AcercaComponent,
-
-    
+    AcercaComponent
   ],
   imports: [
     BrowserModule,
@@ -52,4 +48,4 @@ import { AcercaComponent } from './pages/acerca/acerca.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

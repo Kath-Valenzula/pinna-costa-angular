@@ -1,12 +1,60 @@
-<header>
-  <div class="header-container">
-    <img src="assets/img/logo.jpg" alt="Logo" class="logo" />
-    <nav>
-      <a routerLink="/" routerLinkActive="active">Inicio</a>
-      <a routerLink="/acerca" routerLinkActive="active">Acerca de</a>
-      <a routerLink="/productos" routerLinkActive="active">Productos</a>
-      <a routerLink="/contacto" routerLinkActive="active">Contacto</a>
-      <a routerLink="/cart" routerLinkActive="active">Carrito</a>
-    </nav>
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <img src="../../../assets/img/logo.jpg" alt="Logo" height="50" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link" routerLinkActive="active">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/acerca" class="nav-link" routerLinkActive="active">Acerca de</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/catalogo" class="nav-link" routerLinkActive="active">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/contacto" class="nav-link" routerLinkActive="active">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cart" class="nav-link position-relative">
+            🛒 Carrito
+            <span *ngIf="cantidad > 0" class="badge bg-pink position-absolute top-0 start-100 translate-middle">
+              {{ cantidad }}
+            </span>
+          </a>
+        </li>
+
+        <!-- Si NO está autenticado -->
+        <ng-container *ngIf="!estaAutenticado">
+          <li class="nav-item">
+            <a routerLink="/login" class="nav-link btn btn-outline-dark ms-2">Iniciar sesión</a>
+          </li>
+        </ng-container>
+
+        <!-- Si está autenticado -->
+        <ng-container *ngIf="estaAutenticado">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Perfil
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="/perfil">Ver Perfil</a></li>
+              <li><a class="dropdown-item" routerLink="/logout">Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
   </div>
 </header>

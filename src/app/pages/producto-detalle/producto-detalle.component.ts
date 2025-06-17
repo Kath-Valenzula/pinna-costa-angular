@@ -20,17 +20,19 @@ export class ProductoDetalleComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getById(id).subscribe((prod: Producto | undefined) => {
-      if (prod) {
-        this.producto = prod;
-      }
-    });
+    if (id) {
+      this.productService.getById(id).subscribe((prod) => {
+        if (prod) {
+          this.producto = prod;
+        }
+      });
+    }
   }
 
   agregarAlCarrito(): void {
     if (this.producto) {
       this.cartService.agregar(this.producto);
-      alert(`${this.producto.nombre} fue agregado al carrito.`);
+      alert(`'${this.producto.nombre}' fue agregado al carrito.`);
     }
   }
 }
