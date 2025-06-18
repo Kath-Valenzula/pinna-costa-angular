@@ -1,29 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Producto } from 'src/app/models/producto.model';
-import { ProductService } from 'src/app/services/productos.service';
-import { CartService } from 'src/app/services/cart.service';
+
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-catalogo',
-  templateUrl: './catalogo.component.html',
-  styleUrls: ['./catalogo.component.css']
+  templateUrl: './catalogo.component.html'
 })
-export class CatalogoComponent implements OnInit {
-  productos: Producto[] = [];
-
-  constructor(
-    private productoService: ProductService,
-    private cartService: CartService
-  ) {}
-
-  ngOnInit(): void {
-    this.productoService.getAll().subscribe((lista) => {
-      this.productos = lista;
-    });
-  }
-
-  agregarAlCarrito(producto: Producto): void {
-    this.cartService.agregar(producto);
-    alert(`${producto.nombre} fue agregado al carrito 🛒`);
-  }
+export class CatalogoComponent {
+  productos = [
+    { id: 1, nombre: 'Producto 1', precio: 1000 },
+    { id: 2, nombre: 'Producto 2', precio: 2000 },
+    { id: 3, nombre: 'Producto 3', precio: 3000 }
+  ];
 }

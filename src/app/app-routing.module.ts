@@ -10,7 +10,6 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
-import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { AcercaComponent } from './pages/acerca/acerca.component';
@@ -25,7 +24,6 @@ const routes: Routes = [
   { path: 'recuperar', component: RecuperarComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'contacto', component: ContactoComponent },
-  { path: 'admin-login', component: AdminLoginComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'crear-usuario', component: CreateUserComponent },
   { path: 'acerca', component: AcercaComponent },
