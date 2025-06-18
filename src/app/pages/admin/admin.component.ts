@@ -1,20 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-interface Usuario {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-}
-
-interface Producto {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-}
-
 
 @Component({
   selector: 'app-admin',
@@ -22,32 +6,82 @@ interface Producto {
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  usuarios: Usuario[] = [
-    { id: 1, name: 'Katherine', email: 'ka.valenzuelam@duocuc.cl', role: 'Usuario' },
-    { id: 2, name: 'Miguel',    email: 'm.hernandez@example.com',   role: 'Usuario' },
-    { id: 99, name: 'Admin',    email: 'admin@example.com',         role: 'Administrador' }
-  ];
-  productos: Producto[] = JSON.parse(localStorage.getItem('products') || '[]');
+  usuarios: any[] = [];
+  productos: any[] = [];
+  nuevoProducto: any = {
+    nombre: '',
+    imagen: '',
+    descripcion: '',
+    precio: null
+  };
 
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.cargarUsuarios();
+    this.cargarProductos();
+  }
 
-   ngOnInit(): void {
-    if (sessionStorage.getItem('adminLogged') !== 'true') {
-      this.router.navigate(['/admin-login']);
+  cargarUsuarios(): void {
+    const data = localStorage.getItem('usuarios');
+    this.usuarios = data ? JSON.parse(data) : [];
+  }
+
+  cargarProductos(): void {
+    const data = localStorage.getItem('productos');
+    this.productos = data ? JSON.parse(data) : [];
+  }
+
+  crearUsuario(): void {
+    alert('Función Crear Usuario no implementada en esta vista.');
+  }
+
+  editarUsuario(usuario: any): void {
+    alert(`Editar usuario: ${usuario.nombre}`);
+  }
+
+  eliminarUsuario(usuario: any): void {
+    const confirmacion = confirm(`¿Eliminar a ${usuario.nombre}?`);
+    if (confirmacion) {
+      this.usuarios = this.usuarios.filter(u => u.id !== usuario.id);
+      localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
     }
   }
 
-  crearUsuario() {
-    this.router.navigate(['/create-user']);
+  editarProducto(producto: any): void {
+    this.nuevoProducto = { ...producto };
   }
 
-  agregarProducto(p: { name: string; image: string; description: string }) {
-    const id = this.productos.length ? Math.max(...this.productos.map(x=>x.id)) + 1 : 1;
-    this.productos.push({ id, ...p });
-    localStorage.setItem('products', JSON.stringify(this.productos));
+  eliminarProducto(producto: any): void {
+    const confirmacion = confirm(`¿Eliminar producto "${producto.nombre}"?`);
+    if (confirmacion) {
+      this.productos = this.productos.filter(p => p.id !== producto.id);
+      localStorage.setItem('productos', JSON.stringify(this.productos));
+    }
   }
 
-  salir(): void {
-    this.router.navigate(['/']);
+  guardarProducto(): void {
+    if (!this.nuevoProducto.nombre || !this.nuevoProducto.precio) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    if (this.nuevoProducto.id) {
+      // Actualizar producto
+      const index = this.productos.findIndex(p => p.id === this.nuevoProducto.id);
+      if (index !== -1) {
+        this.productos[index] = { ...this.nuevoProducto };
+      }
+    } else {
+      // Agregar nuevo producto
+      const nuevoId = this.productos.length > 0 ? Math.max(...this.productos.map(p => p.id)) + 1 : 1;
+      this.productos.push({ ...this.nuevoProducto, id: nuevoId });
+    }
+
+    localStorage.setItem('productos', JSON.stringify(this.productos));
+    this.nuevoProducto = {
+      nombre: '',
+      imagen: '',
+      descripcion: '',
+      precio: null
+    };
   }
 }

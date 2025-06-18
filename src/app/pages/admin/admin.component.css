@@ -1,0 +1,13 @@
+.btn-pink {
+  background-color: #d63384;
+  color: #fff;
+  border: none;
+}
+
+.btn-pink:hover {
+  background-color: #c2185b;
+  color: #fff;
+}
+.btn-pink:focus {
+  box-shadow: 0 0 0 0.2rem rgba(214, 51, 132, 0.5);
+}
