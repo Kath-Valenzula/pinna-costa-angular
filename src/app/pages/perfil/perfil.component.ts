@@ -1,23 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-perfil',
-  templateUrl: './perfil.component.html'
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.css']
 })
-export class PerfilComponent {
-  name = '';
-  email = '';
-  phone = '';
-  currentPwd = '';
-  newPwd1 = '';
-  newPwd2 = '';
+export class PerfilComponent implements OnInit {
+  usuario: any = null;
+  historial: any[] = [];
 
-actualizar() {
-  if (this.newPwd1 !== this.newPwd2) {
-    alert('Las contraseñas no coinciden');
-    return;
+  ngOnInit(): void {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      this.usuario = JSON.parse(usuarioGuardado);
+    }
+
+    const compras = localStorage.getItem('historialCompras');
+    this.historial = compras ? JSON.parse(compras) : [];
   }
-  alert('Perfil actualizado correctamente.');
-}
-
 }

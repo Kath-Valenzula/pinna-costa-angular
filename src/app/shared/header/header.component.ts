@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,18 +9,21 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class HeaderComponent implements OnInit {
   cantidad: number = 0;
-  estaAutenticado: boolean = false;
+  estaLogueado: boolean = false;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cantidad = this.cartService.obtenerItems().length;
+    this.estaLogueado = !!localStorage.getItem('usuario');
+  }
 
-    this.cartService.itemsChanged.subscribe(items => {
-      this.cantidad = items.length;
-    });
-
-    const usuario = localStorage.getItem('usuario');
-    this.estaAutenticado = !!usuario;
+  logout() {
+    localStorage.removeItem('usuario');
+    this.estaLogueado = false;
+    this.router.navigate(['/login']);
   }
 }

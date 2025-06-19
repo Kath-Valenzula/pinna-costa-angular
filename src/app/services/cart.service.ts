@@ -1,25 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../models/producto.model';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private items: Producto[] = [];
-  itemsChanged = new Subject<Producto[]>();
+
+  constructor() {
+    const datos = localStorage.getItem('carrito');
+    this.items = datos ? JSON.parse(datos) : [];
+  }
 
   agregar(producto: Producto): void {
     this.items.push(producto);
-    this.itemsChanged.next([...this.items]);
+    this.guardar();
   }
 
   obtenerItems(): Producto[] {
-    return [...this.items];
+    return this.items;
   }
 
   limpiarCarrito(): void {
     this.items = [];
-    this.itemsChanged.next([]);
+    this.guardar();
+  }
+
+  get cantidad$(): number {
+    return this.items.length;
+  }
+
+  private guardar(): void {
+    localStorage.setItem('carrito', JSON.stringify(this.items));
   }
 }

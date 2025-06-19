@@ -7,46 +7,39 @@ import { Router } from '@angular/router';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
-  nombre = '';
-  email = '';
-  password = '';
-  error = '';
-  exito = '';
+  nombre: string = '';
+  email: string = '';
+  password: string = '';
+  error: string = '';
+  mensaje: string = '';
 
   constructor(private router: Router) {}
 
   registrar(): void {
     if (!this.nombre || !this.email || !this.password) {
-      this.error = 'Todos los campos son obligatorios.';
-      this.exito = '';
+      this.error = 'Por favor completa todos los campos.';
       return;
     }
 
-    const usuariosGuardados = localStorage.getItem('usuarios');
-    const usuarios = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
 
-    const existe = usuarios.find((u: any) => u.email === this.email);
-    if (existe) {
-      this.error = 'Ya existe una cuenta con ese correo.';
-      this.exito = '';
+    const yaExiste = usuarios.some((u: any) => u.email === this.email);
+    if (yaExiste) {
+      this.error = 'Ya existe un usuario con este correo.';
       return;
     }
 
     const nuevoUsuario = {
       nombre: this.nombre,
       email: this.email,
-      password: this.password,
-      tipo: 'cliente'
+      password: this.password
     };
 
     usuarios.push(nuevoUsuario);
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-    this.exito = '¡Registro exitoso! Ahora puedes iniciar sesión.';
+    this.mensaje = 'Usuario registrado con éxito. Redirigiendo al inicio de sesión...';
     this.error = '';
-    this.nombre = '';
-    this.email = '';
-    this.password = '';
 
     setTimeout(() => {
       this.router.navigate(['/login']);

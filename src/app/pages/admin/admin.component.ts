@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -6,16 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  usuario: any;
   usuarios: any[] = [];
   productos: any[] = [];
   nuevoProducto: any = {
+    id: null,
     nombre: '',
     imagen: '',
     descripcion: '',
     precio: null
   };
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
+    this.usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
     this.cargarUsuarios();
     this.cargarProductos();
   }
@@ -31,7 +37,7 @@ export class AdminComponent implements OnInit {
   }
 
   crearUsuario(): void {
-    alert('Función Crear Usuario no implementada en esta vista.');
+    this.router.navigate(['/registro']);
   }
 
   editarUsuario(usuario: any): void {
@@ -65,19 +71,20 @@ export class AdminComponent implements OnInit {
     }
 
     if (this.nuevoProducto.id) {
-      // Actualizar producto
+      // Actualizar
       const index = this.productos.findIndex(p => p.id === this.nuevoProducto.id);
       if (index !== -1) {
         this.productos[index] = { ...this.nuevoProducto };
       }
     } else {
-      // Agregar nuevo producto
+      // Crear nuevo
       const nuevoId = this.productos.length > 0 ? Math.max(...this.productos.map(p => p.id)) + 1 : 1;
       this.productos.push({ ...this.nuevoProducto, id: nuevoId });
     }
 
     localStorage.setItem('productos', JSON.stringify(this.productos));
     this.nuevoProducto = {
+      id: null,
       nombre: '',
       imagen: '',
       descripcion: '',

@@ -1,37 +1,22 @@
-.navbar-nav .nav-link {
-  color: #000;
-  transition: color 0.3s ease;
-  font-weight: 500;
-  margin-left: 10px;
+.nav-link:hover, .btn-outline-pink:hover {
+  color: white !important;
+  background-color: #e91e63 !important;
 }
-
-.navbar-nav .nav-link:hover {
-  color: #e91e63; 
+.btn-outline-pink {
+  color: #e91e63;
+  border-color: #e91e63;
 }
-
+.btn-outline-white, .btn-outline-white-danger {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.btn-outline-white-danger {
+  border-color: #ffcdd2;
+  color: #e57373;
+}
 .btn-pink {
-  background-color: #c92a5e;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-}
-.btn-pink:hover {
-  background-color: #b01f51;
-}
-
-.navbar-nav .nav-link {
-  color: #444;
-  transition: color 0.3s ease;
-  font-weight: 500;
-}
-
-.navbar-nav .nav-link:hover {
-  color: #e91e63; 
-}
-
-.badge.bg-pink {
   background-color: #e91e63;
-  font-size: 0.75rem;
-  padding: 0.35em 0.6em;
+  border-color: #e91e63;
+  color: white;
 }

@@ -1,13 +1,23 @@
+.bg-pink {
+  background-color: #f48fb1 !important;
+}
+
 .btn-pink {
-  background-color: #d63384;
-  color: #fff;
+  background-color: #f06292;
+  color: white;
   border: none;
 }
 
 .btn-pink:hover {
-  background-color: #c2185b;
-  color: #fff;
+  background-color: #ec407a;
 }
-.btn-pink:focus {
-  box-shadow: 0 0 0 0.2rem rgba(214, 51, 132, 0.5);
+
+.btn-outline-pink {
+  border: 1px solid #f06292;
+  color: #f06292;
+}
+
+.btn-outline-pink:hover {
+  background-color: #f8bbd0;
+  color: white;
 }
