@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { UserService, NewUser } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -8,33 +7,34 @@ import { UserService, NewUser } from '../../services/user.service';
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent {
-  loading = false;
-  errorMsg = '';
-  successMsg = '';
+  nombre: string = '';
+  email: string = '';
+  password: string = '';
+  rol: string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private router: Router) {}
 
-  onSubmit(form: NgForm) {
-    if (form.invalid) return;
+  crearUsuario(): void {
+    if (!this.nombre || !this.email || !this.password || !this.rol) {
+      alert('Todos los campos son obligatorios.');
+      return;
+    }
 
-    this.loading = true;
-    this.errorMsg = '';
-    this.successMsg = '';
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const nuevoId = usuarios.length > 0 ? Math.max(...usuarios.map((u: any) => u.id)) + 1 : 1;
 
-    const newUser: NewUser = form.value;
+    const nuevoUsuario: any = {
+      id: nuevoId,
+      nombre: this.nombre,
+      email: this.email,
+      password: this.password,
+      rol: this.rol
+    };
 
-    this.userService.createUser(newUser).subscribe({
-      next: () => {
-        this.successMsg = 'Usuario creado correctamente 🎉';
-        form.resetForm();
-      },
-      error: err => {
-        console.error(err);
-        this.errorMsg = err.error?.message || 'Hubo un error al crear el usuario.';
-      },
-      complete: () => {
-        this.loading = false;
-      }
-    });
+    usuarios.push(nuevoUsuario);
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    alert('Usuario creado correctamente.');
+    this.router.navigate(['/admin']);
   }
 }

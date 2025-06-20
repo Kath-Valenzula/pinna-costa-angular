@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* Botones rosas con texto blanco (si aún no está) */
+.btn-pink {
+  background-color: #ff2f7b !important;
+  border-color:     #ff2f7b !important;
+  color:            #ffffff !important;
+}
+
+/* Asegura uso de todo el ancho en .container-fluid */
+.container-fluid {
+  padding-left:  1rem;
+  padding-right: 1rem;
+}

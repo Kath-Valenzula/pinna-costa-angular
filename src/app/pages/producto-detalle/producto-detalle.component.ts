@@ -10,7 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./producto-detalle.component.css']
 })
 export class ProductoDetalleComponent implements OnInit {
-  producto?: Producto;
+  producto!: Producto;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +21,10 @@ export class ProductoDetalleComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
-      this.productService.getById(id).subscribe(prod => {
-        this.producto = prod;
+      this.productService.getById(id).subscribe((prod) => {
+        if (prod) {
+          this.producto = prod;
+        }
       });
     }
   }
@@ -30,7 +32,7 @@ export class ProductoDetalleComponent implements OnInit {
   agregarAlCarrito(): void {
     if (this.producto) {
       this.cartService.agregar(this.producto);
-      alert(`'${this.producto.nombre}' fue agregado al carrito.`);
+      alert(`"${this.producto.nombre}" fue agregado al carrito.`);
     }
   }
 }

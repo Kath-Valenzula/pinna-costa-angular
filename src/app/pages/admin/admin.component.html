@@ -2,7 +2,7 @@
   <h2 class="text-center mb-4">Panel de Administración - Piña Costa</h2>
 
   <div class="card mb-4">
-    <div class="card-header bg-pink text-white">Agregar o Editar Producto</div>
+    <div class="card-header btn-pink text-white">Agregar o Editar Producto</div>
     <div class="card-body">
       <form (ngSubmit)="guardarProducto()">
         <div class="mb-3">
@@ -34,7 +34,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ p.nombre }}</h5>
           <p class="card-text">{{ p.descripcion }}</p>
-          <p class="card-text fw-bold">${{ p.precio | number: '1.0-0' }}</p>
+          <p class="card-text fw-bold">${{ p.precio | number:'1.0-0' }}</p>
           <button class="btn btn-outline-pink w-100 mb-2" (click)="editarProducto(p)">Editar</button>
           <button class="btn btn-danger w-100" (click)="eliminarProducto(p)">Eliminar</button>
         </div>

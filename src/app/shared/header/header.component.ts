@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   cantidad: number = 0;
-  estaLogueado: boolean = false;
+  estaAutenticado: boolean = false;
+  nombreUsuario: string = '';
 
   constructor(
     private cartService: CartService,
@@ -17,13 +18,39 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cantidad = this.cartService.obtenerItems().length;
-    this.estaLogueado = !!localStorage.getItem('usuario');
+    // Mantén el contador del carrito
+    this.cartService['items$'].subscribe((items: any[]) => {
+      this.cantidad = items.length;
+    });
+
+    // Verifica sesión activa
+    const usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      const datos = JSON.parse(usuario);
+      this.estaAutenticado = true;
+      this.nombreUsuario = datos.nombre || datos.email;
+    }
   }
 
-  logout() {
+  /** En función del estado/rol del usuario, navega a la ruta correcta */
+  irAPerfil(): void {
+    const raw = localStorage.getItem('usuario');
+    if (!raw) {
+      this.router.navigate(['/login']);
+    } else {
+      const datos = JSON.parse(raw);
+      if (datos.email === 'admin@example.com') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/perfil']);
+      }
+    }
+  }
+
+  cerrarSesion(): void {
     localStorage.removeItem('usuario');
-    this.estaLogueado = false;
-    this.router.navigate(['/login']);
+    this.estaAutenticado = false;
+    this.nombreUsuario = '';
+    this.router.navigate(['/']);
   }
 }

@@ -15,15 +15,16 @@ export class LoginComponent {
 
   iniciarSesion(): void {
     const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    const usuario = usuarios.find((u: any) => u.email === this.email && u.password === this.password);
+    const usuario = usuarios.find((u: any) =>
+      u.email === this.email && u.password === this.password
+    );
 
     if (usuario) {
       localStorage.setItem('usuario', JSON.stringify(usuario));
-
       if (usuario.email === 'admin@example.com') {
         this.router.navigate(['/admin']);
       } else {
-        this.router.navigate(['/']);
+        this.router.navigate(['/perfil']);
       }
     } else {
       this.error = 'Correo o contraseña incorrectos';
