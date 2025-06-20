@@ -8,27 +8,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RecuperarComponent implements OnInit {
   recuperarForm!: FormGroup;
-  enviado: boolean = false;
-  error: string = '';
+  enviado = false;
+  error = '';
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.recuperarForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
-      // No hay "direccionDespacho" aquí, así que no lo agregamos
+      email: ['', [Validators.required, Validators.email]],
+      direccionDespacho: [''],
+      fechaNacimiento:   ['', Validators.required]
     });
   }
 
   onSubmit(): void {
     if (this.recuperarForm.invalid) {
-      this.error = 'Introduce un correo válido.';
+      this.error = 'Revisa los campos marcados.';
       this.enviado = false;
       return;
     }
-
     this.enviado = true;
     this.error = '';
     this.recuperarForm.reset();
+  }
+
+  limpiar(): void {
+    this.recuperarForm.reset();
+    this.error = '';
+    this.enviado = false;
   }
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
 interface Usuario {
   nombre: string;
   email: string;
   direccionDespacho?: string;
+  fechaNacimiento?: string;
 }
 
 @Component({
@@ -15,23 +16,19 @@ interface Usuario {
 })
 export class PerfilComponent implements OnInit {
   perfilForm!: FormGroup;
-  usuario: Usuario = { nombre: '', email: '', direccionDespacho: '' };
-  editando: boolean = false;
+  usuario: Usuario = { nombre: '', email: '', direccionDespacho: '', fechaNacimiento: '' };
+  editando = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router
-  ) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     const raw = localStorage.getItem('usuario');
-    if (raw) {
-      this.usuario = JSON.parse(raw);
-    }
+    if (raw) this.usuario = JSON.parse(raw);
     this.perfilForm = this.fb.group({
       nombre:            [this.usuario.nombre, Validators.required],
       email:             [this.usuario.email, [Validators.required, Validators.email]],
-      direccionDespacho: [this.usuario.direccionDespacho || '']
+      direccionDespacho: [this.usuario.direccionDespacho || ''],
+      fechaNacimiento:   [this.usuario.fechaNacimiento || '', Validators.required]
     });
   }
 
@@ -41,24 +38,27 @@ export class PerfilComponent implements OnInit {
 
   guardarCambios(): void {
     if (this.perfilForm.invalid) return;
-
-    const actualizados: Usuario = this.perfilForm.value;
-    localStorage.setItem('usuario', JSON.stringify(actualizados));
-
-    const usuarios: Usuario[] = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    const idx = usuarios.findIndex(u => u.email === this.usuario.email);
-    if (idx !== -1) {
-      usuarios[idx] = actualizados;
-      localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    }
-
-    this.usuario = actualizados;
+    const actual: Usuario = this.perfilForm.value;
+    localStorage.setItem('usuario', JSON.stringify(actual));
+    const list: Usuario[] = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const idx = list.findIndex(u => u.email === this.usuario.email);
+    if (idx !== -1) { list[idx] = actual; localStorage.setItem('usuarios', JSON.stringify(list)); }
+    this.usuario = actual;
     this.editando = false;
   }
 
   cancelar(): void {
     this.editando = false;
     this.perfilForm.patchValue(this.usuario);
+  }
+
+  limpiar(): void {
+    this.perfilForm.reset({
+      nombre: this.usuario.nombre,
+      email: this.usuario.email,
+      direccionDespacho: this.usuario.direccionDespacho,
+      fechaNacimiento: this.usuario.fechaNacimiento
+    });
   }
 
   cerrarSesion(): void {
