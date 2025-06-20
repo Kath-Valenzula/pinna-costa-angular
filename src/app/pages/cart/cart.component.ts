@@ -22,6 +22,6 @@ export class CartComponent implements OnInit {
   }
 
   obtenerTotal(): number {
-    return this.items.reduce((sum, item) => sum + item.precio, 0);
+    return this.items.reduce((sum, item) => sum + (item.precio || 0), 0);
   }
 }

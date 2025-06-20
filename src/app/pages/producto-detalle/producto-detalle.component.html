@@ -6,8 +6,7 @@
     <div class="col-md-6">
       <h2 class="mb-3">{{ producto.nombre }}</h2>
       <p class="text-muted">{{ producto.descripcion }}</p>
-      <h4 class="text-dark mb-4">${{ producto.precio | number:'1.0-0' }}</h4>
-
+      <h4 class="text-dark mb-4">${{ producto.precio }}</h4>
       <button class="btn btn-pink" (click)="agregarAlCarrito()">Agregar al Carrito 🛒</button>
     </div>
   </div>

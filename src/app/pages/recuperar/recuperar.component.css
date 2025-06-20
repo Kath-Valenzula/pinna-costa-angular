@@ -11,3 +11,9 @@
 }
 .invalid-feedback { color: #dc3545; }
 button[disabled] { opacity: .6; cursor: not-allowed; }
+
+:host ::ng-deep .btn-primary {
+  background-color: #ff2f7b !important;
+  border-color:    #ff2f7b !important;
+  color:           #ffffff !important;
+}

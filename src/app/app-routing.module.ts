@@ -25,9 +25,9 @@ const routes: Routes = [
   { path: 'perfil', component: PerfilComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'crear-usuario', component: CreateUserComponent },
+  { path: 'create-user', component: CreateUserComponent },
   { path: 'acerca', component: AcercaComponent },
-  { path: '**', redirectTo: '' } // Ruta por defecto para errores 404
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

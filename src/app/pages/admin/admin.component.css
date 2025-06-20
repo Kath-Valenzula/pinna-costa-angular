@@ -1,23 +1,22 @@
-.bg-pink {
-  background-color: #f48fb1 !important;
+.text-rosado {
+  color: #d63384;
 }
 
-.btn-pink {
-  background-color: #f06292;
+.btn-rosado {
+  background-color: #d63384;
   color: white;
   border: none;
 }
 
-.btn-pink:hover {
-  background-color: #ec407a;
+.btn-rosado:hover {
+  background-color: #c2185b;
 }
 
-.btn-outline-pink {
-  border: 1px solid #f06292;
-  color: #f06292;
+.is-invalid {
+  border: 1px solid #dc3545;
 }
 
-.btn-outline-pink:hover {
-  background-color: #f8bbd0;
-  color: white;
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875em;
 }

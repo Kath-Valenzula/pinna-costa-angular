@@ -83,3 +83,18 @@ button[disabled] { opacity: .6; cursor: not-allowed; }
   color: #999;
   font-style: italic;
 }
+.text-rosado {
+  color: #d63384;
+  font-weight: bold;
+}
+
+.btn-rosado {
+  background-color: #d63384;
+  color: white;
+  border: none;
+}
+
+.btn-rosado:hover {
+  background-color: #bd296e;
+  color: white;
+}

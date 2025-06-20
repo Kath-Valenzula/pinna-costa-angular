@@ -16,16 +16,12 @@ export class ProductService {
   }
 
   getById(id: number): Observable<Producto | undefined> {
-    return new Observable((observer) => {
+    return new Observable(observer => {
       this.getAll().subscribe(productos => {
         const producto = productos.find(p => p.id === id);
         observer.next(producto);
         observer.complete();
       });
     });
-  }
-
-  delete(id: number): void {
-    console.warn('Eliminar producto no implementado para JSON local');
   }
 }

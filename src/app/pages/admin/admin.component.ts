@@ -45,8 +45,7 @@ export class AdminComponent implements OnInit {
   }
 
   eliminarUsuario(usuario: any): void {
-    const confirmacion = confirm(`¿Eliminar a ${usuario.nombre}?`);
-    if (confirmacion) {
+    if (confirm(`¿Eliminar a ${usuario.nombre}?`)) {
       this.usuarios = this.usuarios.filter(u => u.id !== usuario.id);
       localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
     }
@@ -57,8 +56,7 @@ export class AdminComponent implements OnInit {
   }
 
   eliminarProducto(producto: any): void {
-    const confirmacion = confirm(`¿Eliminar producto "${producto.nombre}"?`);
-    if (confirmacion) {
+    if (confirm(`¿Eliminar producto "${producto.nombre}"?`)) {
       this.productos = this.productos.filter(p => p.id !== producto.id);
       localStorage.setItem('productos', JSON.stringify(this.productos));
     }
@@ -71,24 +69,16 @@ export class AdminComponent implements OnInit {
     }
 
     if (this.nuevoProducto.id) {
-      // Actualizar
-      const index = this.productos.findIndex(p => p.id === this.nuevoProducto.id);
-      if (index !== -1) {
-        this.productos[index] = { ...this.nuevoProducto };
-      }
+      const idx = this.productos.findIndex(p => p.id === this.nuevoProducto.id);
+      if (idx !== -1) this.productos[idx] = { ...this.nuevoProducto };
     } else {
-      // Crear nuevo
-      const nuevoId = this.productos.length > 0 ? Math.max(...this.productos.map(p => p.id)) + 1 : 1;
+      const nuevoId = this.productos.length
+        ? Math.max(...this.productos.map(p => p.id)) + 1
+        : 1;
       this.productos.push({ ...this.nuevoProducto, id: nuevoId });
     }
 
     localStorage.setItem('productos', JSON.stringify(this.productos));
-    this.nuevoProducto = {
-      id: null,
-      nombre: '',
-      imagen: '',
-      descripcion: '',
-      precio: null
-    };
+    this.nuevoProducto = { id: null, nombre: '', imagen: '', descripcion: '', precio: null };
   }
 }

@@ -1,10 +1,32 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-  <!-- tus campos: nombre, email, pwd1, pwd2, role -->
-  <button type="submit" [disabled]="loading" class="btn btn-success w-100">
-    <span *ngIf="!loading">Crear Usuario</span>
-    <span *ngIf="loading">Creando…</span>
-  </button>
-</form>
+<div class="container mt-5">
+  <div class="card p-4 bg-light shadow">
+    <h2 class="text-center mb-4 text-rosado">Crear Nuevo Usuario</h2>
 
-<div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
-<div *ngIf="successMsg" class="alert alert-success mt-3">{{ successMsg }}</div>
+    <form (ngSubmit)="crearUsuario()">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" [(ngModel)]="nombre" name="nombre" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" [(ngModel)]="email" name="email" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+        <input type="password" [(ngModel)]="password" name="password" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Rol</label>
+        <select [(ngModel)]="rol" name="rol" class="form-select">
+          <option value="Usuario">Usuario</option>
+          <option value="Administrador">Administrador</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-rosado w-100">Guardar Usuario</button>
+    </form>
+  </div>
+</div>

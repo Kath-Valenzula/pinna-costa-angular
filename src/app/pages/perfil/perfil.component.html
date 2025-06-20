@@ -1,24 +1,41 @@
-<div class="perfil-container">
-  <h2>Perfil del Usuario</h2>
+<div class="container perfil-box mt-4">
+  <h2 class="text-center mb-4">Mi Perfil</h2>
 
-  <div *ngIf="usuario">
-    <p><strong>Nombre:</strong> {{ usuario.nombre || 'No definido' }}</p>
+  <div *ngIf="!editando; else editForm">
+    <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
     <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <button class="btn btn-pink me-2" (click)="editar()">Editar</button>
+    <button class="btn btn-outline-dark" (click)="cerrarSesion()">Cerrar sesión</button>
   </div>
 
-  <div class="historial-container">
-    <h3 class="historial-titulo">Historial de Compras</h3>
-
-    <div *ngIf="historial.length > 0; else sinCompras">
-      <ul class="lista-compras">
-        <li *ngFor="let item of historial">
-          <strong>{{ item.nombre }}</strong> – {{ item.fecha }} – ${{ item.precio | number:'1.0-0' }}
-        </li>
-      </ul>
-    </div>
-
-    <ng-template #sinCompras>
-      <p class="sin-compras">No hay compras registradas aún.</p>
-    </ng-template>
-  </div>
+  <ng-template #editForm>
+    <form (ngSubmit)="guardarCambios()">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="usuario.nombre"
+          name="nombre"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          [(ngModel)]="usuario.email"
+          name="email"
+          required
+        />
+      </div>
+      <div class="d-flex">
+        <button type="submit" class="btn btn-pink me-2">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="cancelar()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </ng-template>
 </div>

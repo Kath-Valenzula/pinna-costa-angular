@@ -1,5 +1,13 @@
-.container {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.text-rosado {
+  color: #d63384;
+}
+
+.btn-rosado {
+  background-color: #d63384;
+  color: white;
+  border: none;
+}
+
+.btn-rosado:hover {
+  background-color: #c2185b;
 }
