@@ -1,48 +1,55 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+interface Usuario {
+  nombre: string;
+  email: string;
+  password: string;
+  direccionDespacho?: string;
+}
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent {
-  nombre: string = '';
-  email: string = '';
-  password: string = '';
+export class RegistroComponent implements OnInit {
+  registroForm!: FormGroup;
   error: string = '';
   mensaje: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.registroForm = this.fb.group({
+      nombre:            ['', Validators.required],
+      email:             ['', [Validators.required, Validators.email]],
+      password:          ['', Validators.required],
+      direccionDespacho: ['']  // campo opcional
+    });
+  }
 
   registrar(): void {
-    if (!this.nombre || !this.email || !this.password) {
-      this.error = 'Por favor completa todos los campos.';
+    if (this.registroForm.invalid) {
+      this.error = 'Revisa los campos obligatorios.';
+      this.mensaje = '';
       return;
     }
 
-    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    const nuevo: Usuario = this.registroForm.value;
+    const lista: Usuario[] = JSON.parse(localStorage.getItem('usuarios') || '[]');
 
-    const yaExiste = usuarios.some((u: any) => u.email === this.email);
-    if (yaExiste) {
-      this.error = 'Ya existe un usuario con este correo.';
+    if (lista.some(u => u.email === nuevo.email)) {
+      this.error = 'El correo ya está registrado.';
+      this.mensaje = '';
       return;
     }
 
-    const nuevoUsuario = {
-      nombre: this.nombre,
-      email: this.email,
-      password: this.password
-    };
+    lista.push(nuevo);
+    localStorage.setItem('usuarios', JSON.stringify(lista));
 
-    usuarios.push(nuevoUsuario);
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
-    this.mensaje = 'Usuario registrado con éxito. Redirigiendo al inicio de sesión...';
+    this.mensaje = 'Cuenta creada correctamente.';
     this.error = '';
-
-    setTimeout(() => {
-      this.router.navigate(['/login']);
-    }, 2000);
+    this.registroForm.reset();
   }
 }

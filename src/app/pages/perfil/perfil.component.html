@@ -4,34 +4,55 @@
   <div *ngIf="!editando; else editForm">
     <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
     <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <p><strong>Dirección de despacho:</strong> {{ usuario.direccionDespacho || '—' }}</p>
     <button class="btn btn-pink me-2" (click)="editar()">Editar</button>
     <button class="btn btn-outline-dark" (click)="cerrarSesion()">Cerrar sesión</button>
   </div>
 
   <ng-template #editForm>
-    <form (ngSubmit)="guardarCambios()">
+    <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
       <div class="mb-3">
         <label class="form-label">Nombre</label>
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="usuario.nombre"
-          name="nombre"
-          required
+          formControlName="nombre"
+          [class.is-invalid]="perfilForm.get('nombre')?.invalid && perfilForm.get('nombre')?.touched"
         />
+        <div class="invalid-feedback" *ngIf="perfilForm.get('nombre')?.hasError('required')">
+          El nombre es obligatorio.
+        </div>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Email</label>
         <input
           type="email"
           class="form-control"
-          [(ngModel)]="usuario.email"
-          name="email"
-          required
+          formControlName="email"
+          [class.is-invalid]="perfilForm.get('email')?.invalid && perfilForm.get('email')?.touched"
+        />
+        <div class="invalid-feedback" *ngIf="perfilForm.get('email')?.hasError('required')">
+          El email es obligatorio.
+        </div>
+        <div class="invalid-feedback" *ngIf="perfilForm.get('email')?.hasError('email')">
+          Formato de email inválido.
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Dirección de despacho</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="direccionDespacho"
         />
       </div>
+
       <div class="d-flex">
-        <button type="submit" class="btn btn-pink me-2">Guardar</button>
+        <button type="submit" class="btn btn-pink me-2" [disabled]="perfilForm.invalid">
+          Guardar
+        </button>
         <button type="button" class="btn btn-outline-dark" (click)="cancelar()">
           Cancelar
         </button>

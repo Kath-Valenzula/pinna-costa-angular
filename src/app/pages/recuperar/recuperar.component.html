@@ -1,24 +1,29 @@
 <div class="recuperar-container">
   <h2>Recuperar Contraseña</h2>
 
-  <form #recForm="ngForm" (ngSubmit)="onSubmit(recForm)" novalidate>
-    <div class="form-group">
+  <form [formGroup]="recuperarForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-group mb-3">
       <label for="emailRec">Email *</label>
       <input
         id="emailRec"
-        name="email"
         type="email"
+        formControlName="email"
         class="form-control"
-        required
-        [(ngModel)]="email"
-        #eCtrl="ngModel"
+        [class.is-invalid]="recuperarForm.get('email')?.invalid && recuperarForm.get('email')?.touched"
       />
-      <div class="invalid-feedback" *ngIf="eCtrl.invalid && eCtrl.touched">
-        Debes introducir un correo válido.
+      <div class="invalid-feedback" *ngIf="recuperarForm.get('email')?.hasError('required')">
+        El correo es obligatorio.
+      </div>
+      <div class="invalid-feedback" *ngIf="recuperarForm.get('email')?.hasError('email')">
+        Formato de correo inválido.
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="recForm.invalid">
+    <button
+      type="submit"
+      class="btn btn-primary w-100"
+      [disabled]="recuperarForm.invalid"
+    >
       Enviar enlace
     </button>
   </form>

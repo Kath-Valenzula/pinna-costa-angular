@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,26 +7,40 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  email: string = '';
-  password: string = '';
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   error: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
 
   iniciarSesion(): void {
+    if (this.loginForm.invalid) {
+      this.error = 'Revisa los campos marcados.';
+      return;
+    }
+
+    const { email, password } = this.loginForm.value;
     const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
     const usuario = usuarios.find((u: any) =>
-      u.email === this.email && u.password === this.password
+      u.email === email && u.password === password
     );
 
     if (usuario) {
       localStorage.setItem('usuario', JSON.stringify(usuario));
-      if (usuario.email === 'admin@example.com') {
-        this.router.navigate(['/admin']);
-      } else {
-        this.router.navigate(['/perfil']);
-      }
+      this.router.navigate([
+        usuario.email === 'admin@example.com' ? '/admin' : '/perfil'
+      ]);
     } else {
       this.error = 'Correo o contraseña incorrectos';
     }
