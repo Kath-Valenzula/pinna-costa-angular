@@ -1,25 +1,40 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recuperar',
   templateUrl: './recuperar.component.html',
   styleUrls: ['./recuperar.component.css']
 })
-export class RecuperarComponent {
-  email = '';
+export class RecuperarComponent implements OnInit {
+  recuperarForm!: FormGroup;
   enviado = false;
   error = '';
 
-  onSubmit(form: NgForm) {
-    if (form.invalid) {
-      this.error = 'Introduce un correo electrónico válido.';
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.recuperarForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      direccionDespacho: [''],
+      fechaNacimiento:   ['', Validators.required]
+    });
+  }
+
+  onSubmit(): void {
+    if (this.recuperarForm.invalid) {
+      this.error = 'Revisa los campos marcados.';
+      this.enviado = false;
       return;
     }
-    // Aquí iría la lógica real (API, etc.)
-    console.log('Enviando enlace a:', this.email);
     this.enviado = true;
     this.error = '';
-    form.resetForm();
+    this.recuperarForm.reset();
+  }
+
+  limpiar(): void {
+    this.recuperarForm.reset();
+    this.error = '';
+    this.enviado = false;
   }
 }
